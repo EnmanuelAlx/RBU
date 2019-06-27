@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize');
 var task = require('./task');
-var sequelize = new Sequelize('test2', 'root', '', {
+var sequelize = new Sequelize('test', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
 });
@@ -18,16 +18,16 @@ var estado_sala = require('./estado_sala');
 
 var db = {};
 
-piso = sequelize.define("Piso", piso);
-sala = sequelize.define("Sala", sala);
-reservacion = sequelize.define("Reservacion", reservacion);
-persona_reservacion = sequelize.define("Persona por Reservacion", persona_reservacion);
-sancion = sequelize.define("Sancion", sancion);
-persona = sequelize.define("Persona", persona);
-oferta_academica = sequelize.define("Oferta Academica", oferta_academica);
-categoria_oferta_academica = sequelize.define("Categoria Oferta Academica", categoria_oferta_academica);
-categoria_persona = sequelize.define("Categoria Persona", categoria_persona);
-estado_sala = sequelize.define("Estado de Sala", estado_sala);
+piso = sequelize.define("piso", piso);
+sala = sequelize.define("sala", sala);
+reservacion = sequelize.define("reservacion", reservacion);
+persona_reservacion = sequelize.define("persona_reservacion", persona_reservacion);
+sancion = sequelize.define("sancion", sancion);
+persona = sequelize.define("persona", persona);
+oferta_academica = sequelize.define("oferta_academica", oferta_academica);
+categoria_oferta_academica = sequelize.define("categoria_oferta_academica", categoria_oferta_academica);
+categoria_persona = sequelize.define("categoria_persona", categoria_persona);
+estado_sala = sequelize.define("estado_sala", estado_sala);
 
 piso.hasMany(sala, {
   foreignKey: 'id_piso'

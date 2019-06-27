@@ -14,7 +14,7 @@
                         <v-icon>dashboard</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <router-link :to="{name : 'hello'}" tag="v-list-tile-title">Hello</router-link>
+                        <router-link :to="{name : 'hello'}" tag="v-list-tile-title">Primero</router-link>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -22,7 +22,7 @@
 
         <v-toolbar app fixed clipped-left>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>RBU</v-toolbar-title>
+            <v-toolbar-title>Sistema de reservacion para la biblioteca de la UCAB</v-toolbar-title>
         </v-toolbar>
         <v-content>
             <router-view/>
