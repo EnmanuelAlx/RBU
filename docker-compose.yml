@@ -1,0 +1,50 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    container_name: db-biblio
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'biblioteca'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'user'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'password'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3336:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3336'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+  api: 
+    image: node:lts-alpine
+    container_name: api
+    restart: always
+    working_dir: /home/node/api
+    volumes:
+      - ./:/home/node/api
+    ports:
+      - '3005:3005'
+    expose:
+      - "3005"
+    command: "npm start:api"
+  front: 
+    image: node:lts-alpine
+    container_name: front
+    restart: always
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - '8080:8080'
+    expose:
+      - "8080"
+    command: "npm run dev"
+
+# Names our volume
+volumes:
+  my-db:

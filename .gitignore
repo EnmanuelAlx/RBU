@@ -12,3 +12,8 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+
+ormconfig.json
+node_modules
+api/build
