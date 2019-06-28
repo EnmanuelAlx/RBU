@@ -10,7 +10,7 @@ createConnection()
   .then(async (connection) => {
     const app = express();
 
-    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded());
     app.use(logger('dev'));
 
     // Register application routes
@@ -33,4 +33,4 @@ createConnection()
     });
   })
   // tslint:disable-next-line:no-console
-  .catch((err) => console.log(`TypeORM connection error:: ${err}`));
+  .catch((err) => console.log(`TypeORM connection error: ${err}`));

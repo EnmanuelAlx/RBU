@@ -1,32 +1,38 @@
 import PisoController from './controller/PisoController';
 
+enum Method {
+  post = 'post',
+  get = 'get',
+  update = 'put',
+  delete = 'delete',
+}
 /**
  * All application routes.
  */
 export const AppRoutes = [
   {
     action: PisoController.getAll,
-    method: 'get',
+    method: Method.get,
     path: '/pisos',
   },
   {
     action: PisoController.add,
-    method: 'post',
+    method: Method.post,
     path: '/pisos',
   },
   {
     action: PisoController.getById,
-    method: 'get',
+    method: Method.get,
     path: '/pisos/:id',
   },
   {
     action: PisoController.update,
-    method: 'update',
+    method: Method.update,
     path: '/pisos/:id',
   },
   {
     action: PisoController.delete,
-    method: 'delete',
+    method: Method.delete,
     path: '/pisos/:id',
   }
 ];

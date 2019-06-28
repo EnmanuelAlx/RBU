@@ -23,17 +23,24 @@ export default {
   async add(req: Request, res: Response) {
     const pisoRepository = getManager().getRepository(Piso);
     const piso = req.body;
-    pisoRepository.insert(piso);
+    pisoRepository.insert(piso).then((piso$) => {
+
+      res.send({
+        descripcion: piso.descripcion,
+        id: piso$.raw.insertId,
+      });
+    });
 
     if (!piso) {
       res.status(404);
       res.end();
       return;
     }
-    res.send(piso);
+
   },
   async update(req: Request, res: Response) {
-    const { descripcion, id } = req.body;
+    const { descripcion } = req.body;
+    const { id } = req.params;
     const pisoRepository = getManager().getRepository(Piso);
     const piso = await pisoRepository.findOne(id);
     if (!piso) {
