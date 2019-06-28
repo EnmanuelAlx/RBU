@@ -28,9 +28,9 @@ services:
     volumes:
       - ./:/home/node/api
     ports:
-      - '3005:3005'
+      - '8000:8000'
     expose:
-      - "3005"
+      - "8000"
     command: "npm run start:api"
   front: 
     image: node:lts-alpine

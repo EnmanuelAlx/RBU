@@ -1,17 +1,17 @@
-import UserController from "./controller/UserController";
+import PisoController from "./controller/PisoController";
 
 /**
  * All application routes.
  */
 export const AppRoutes = [
   {
-    action: UserController.getAll,
+    action: PisoController.getAll,
     method: "get",
-    path: "/users",
+    path: "/pisos",
   },
   {
-    action: UserController.getById,
+    action: PisoController.getById,
     method: "get",
-    path: "/users/:id",
+    path: "/pisos/:id",
   }
 ];

@@ -27,10 +27,10 @@ createConnection()
     });
 
     // Run app
-    app.listen(3005, () => {
+    app.listen(8000, () => {
       // tslint:disable-next-line:no-console
-      console.log('Express application is up ansd running on port 3000');
+      console.log('Express application is up ansd running on port 8000');
     });
   })
   // tslint:disable-next-line:no-console
-  .catch((err) => console.log(`TypeORM connection error: ${err}`));
+  .catch((err) => console.log(`TypeORM connection error:: ${err}`));
