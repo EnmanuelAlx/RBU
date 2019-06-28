@@ -14,6 +14,8 @@ yarn-error.log*
 *.sln
 
 
+build
+
 ormconfig.json
 node_modules
 api/build
