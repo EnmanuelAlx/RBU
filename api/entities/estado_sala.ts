@@ -1,13 +1,11 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Sala } from './sala';
 
 @Entity('estado_sala', { schema: 'biblioteca' })
 export class EstadoSala {
 
-    @Column('int', {
+    @PrimaryGeneratedColumn({
         name: 'id',
-        nullable: false,
-        primary: true,
     })
     public id: number;
 

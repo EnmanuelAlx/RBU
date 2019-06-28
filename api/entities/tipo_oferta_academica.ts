@@ -1,13 +1,11 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { OfertaAcademica } from './oferta_academica';
 
 @Entity('tipo_oferta_academica', { schema: 'biblioteca' })
 export class TipoOfertaAcademica {
 
-    @Column('int', {
+    @PrimaryGeneratedColumn({
         name: 'id',
-        nullable: false,
-        primary: true,
     })
     public id: number;
 

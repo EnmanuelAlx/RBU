@@ -1,5 +1,5 @@
 // tslint:disable-next-line:max-line-length
-import { BaseEntity, Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, RelationId } from 'typeorm';
+import { BaseEntity, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Categorias } from './categorias';
 import { OfertaAcademica } from './oferta_academica';
 import { PersonasReservacion } from './personas_reservacion';
@@ -9,10 +9,8 @@ import { PersonasReservacion } from './personas_reservacion';
 @Index('fk_personas_oferta_academica_1', ['idOfertaAcademica',])
 export class Persona {
 
-    @Column('int', {
+    @PrimaryGeneratedColumn({
         name: 'id',
-        nullable: false,
-        primary: true,
     })
     public id: number;
 

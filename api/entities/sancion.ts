@@ -1,14 +1,12 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PersonasReservacion } from './personas_reservacion';
 
 @Entity('sancion', { schema: 'biblioteca' })
 @Index('fk_sanciones_personas_reservacion_1', ['idPersonaReservacion'])
 export class Sancion {
 
-    @Column('int', {
+    @PrimaryGeneratedColumn({
         name: 'id',
-        nullable: false,
-        primary: true,
     })
     public id: number;
 

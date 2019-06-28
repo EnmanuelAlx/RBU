@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Persona } from './persona';
 import { TipoOfertaAcademica } from './tipo_oferta_academica';
 
@@ -6,10 +6,8 @@ import { TipoOfertaAcademica } from './tipo_oferta_academica';
 @Index('fk_oferta_academica_tipo_oferta_academica_1', ['idTipo',])
 export class OfertaAcademica {
 
-    @Column('int', {
+    @PrimaryGeneratedColumn({
         name: 'id',
-        nullable: false,
-        primary: true,
     })
     public id: number;
 
