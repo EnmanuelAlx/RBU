@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-toolbar flat color="#212121">
-            <v-toolbar-title>Ofertas Academicas</v-toolbar-title>
+            <v-toolbar-title>Tipos de Ofertas Academicas</v-toolbar-title>
             <v-divider
                 class="mx-2"
                 inset
@@ -17,11 +17,11 @@
                     single-line
                     hide-details
                 ></v-text-field>
-                <v-btn color="primary" dark class="mb-2" v-on="on">Nueva oferta academica</v-btn>
+                <v-btn color="primary" dark class="mb-2" v-on="on">Nuevo tipo de oferta academica</v-btn>
                 </template>
                 <v-card>
                 <v-card-title>
-                    <span class="headline">Nueva oferta academica</span>
+                    <span class="headline">Nuevo tipo de oferta academica</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -46,7 +46,7 @@
         <v-dialog v-model="dialogEdit" max-width="500px">
             <v-card>
             <v-card-title>
-                <span class="headline">Editar oferta academica</span>
+                <span class="headline">Editar tipo de oferta academica</span>
             </v-card-title>
 
             <v-card-text>
