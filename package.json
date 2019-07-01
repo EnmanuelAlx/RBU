@@ -25,6 +25,7 @@
     "typeorm": "^0.2.18",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
+    "vue2-animate": "^2.1.0",
     "vuetify": "^1.5.16"
   },
   "devDependencies": {

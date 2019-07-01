@@ -8,6 +8,7 @@ import 'vuetify/dist/vuetify.min.css'
 
 Vue.config.productionTip = false
 Vue.use(vuetify);
+Vue.prototype.$api = 'http://localhost:8000/api'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -17,6 +17,23 @@
                         <router-link :to="{name : 'hello'}" tag="v-list-tile-title">Primero</router-link>
                     </v-list-tile-content>
                 </v-list-tile>
+
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon>dashboard</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <router-link :to="{name : 'OfertaAcademica'}" tag="v-list-tile-title">Ofertaas Academica</router-link>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon>dashboard</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <router-link :to="{name : 'TipoOfertaAcademica'}" tag="v-list-tile-title">Tipos de Ofertaas Academica</router-link>
+                    </v-list-tile-content>
+                </v-list-tile>
             </v-list>
         </v-navigation-drawer>
 
@@ -25,7 +42,12 @@
             <v-toolbar-title>Sistema de reservacion para la biblioteca de la UCAB</v-toolbar-title>
         </v-toolbar>
         <v-content>
-            <router-view/>
+            <transition
+                name="fadeDown"
+                mode="out-in"
+            >
+                <router-view style="animation-duration: 0.2s"></router-view>
+            </transition>
         </v-content>
     </v-app>
 </div>
@@ -50,5 +72,8 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+}
+.v-list__tile__title{
+    cursor: pointer;
 }
 </style>

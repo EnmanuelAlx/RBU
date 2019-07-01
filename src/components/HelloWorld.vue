@@ -16,13 +16,7 @@ export default {
         }
     },
     created () {
-        axios.get('http://localhost:8000/api/tasks')
-        .then(response=>{
-            this.tasks = response.data
-        })
-        .catch(err=>{
-            alert(err);
-        })
+        
     },
     methods: {
 

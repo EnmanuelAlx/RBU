@@ -10,10 +10,10 @@ export class TipoOfertaAcademica {
     public id: number;
 
     @Column('varchar', {
-        name: 'nombre',
+        name: 'descripcion',
         nullable: true,
     })
-    public nombre: string | null;
+    public descripcion: string | null;
 
     @OneToMany(() => OfertaAcademica, (ofertaAcademica$) => {
         return ofertaAcademica$.idTipo;

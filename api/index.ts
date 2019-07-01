@@ -5,14 +5,15 @@ import * as logger from 'morgan';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import { AppRoutes } from './routes';
+var http = require ('http');
+var cors = require('cors');
 
 createConnection()
   .then(async (connection) => {
-    const app = express();
-
-    app.use(bodyParser.urlencoded());
-    app.use(logger('dev'));
-
+    var app = express();
+    app.use(express.static('public'));
+    app.use(bodyParser.json());
+    app.use(cors());
     // Register application routes
     AppRoutes.forEach((route) => {
       app[route.method](
@@ -27,10 +28,11 @@ createConnection()
     });
 
     // Run app
-    app.listen(8000, () => {
-      // tslint:disable-next-line:no-console
-      console.log('Express application is up ansd running on port 8000');
-    });
+
+    var server = http.createServer(app);
+    server.listen(8000, function(){
+        console.log('escuchando en el puerto 8000');
+    })
   })
   // tslint:disable-next-line:no-console
   .catch((err) => console.log(`TypeORM connection error: ${err}`));

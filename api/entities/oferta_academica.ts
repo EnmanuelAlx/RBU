@@ -17,6 +17,7 @@ export class OfertaAcademica {
     })
     public descripcion: string | null;
 
+    @Index()
     @ManyToOne(() => TipoOfertaAcademica, (tipoOfertaAcademica$) => {
         return tipoOfertaAcademica$.ofertaAcademicas;
     }, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
