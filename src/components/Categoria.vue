@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-toolbar flat color="#212121">
-            <v-toolbar-title>Tipos de Ofertas Academicas</v-toolbar-title>
+            <v-toolbar-title>Categorias</v-toolbar-title>
             <v-divider
                 class="mx-2"
                 inset
@@ -17,11 +17,11 @@
                     single-line
                     hide-details
                 ></v-text-field>
-                <v-btn color="primary" dark class="mb-2" v-on="on">Nuevo tipo de oferta academica</v-btn>
+                <v-btn color="primary" dark class="mb-2" v-on="on">Nueva Categoria</v-btn>
                 </template>
                 <v-card>
                 <v-card-title>
-                    <span class="headline">Nuevo tipo de oferta academica</span>
+                    <span class="headline">Nueva Categoria</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -46,7 +46,7 @@
         <v-dialog v-model="dialogEdit" max-width="500px">
             <v-card>
             <v-card-title>
-                <span class="headline">Editar tipo de oferta academica</span>
+                <span class="headline">Editar categoria</span>
             </v-card-title>
 
             <v-card-text>
@@ -103,7 +103,7 @@
 <script>
 import axios from 'axios';
 export default {
-    name: 'TipoOfertaAcademica',
+    name: 'Categoria',
         data: () => ({
             search: '',
             dialog: false,
@@ -138,7 +138,7 @@ export default {
     methods: {
         initialize () {
             this.desserts = [];
-            axios.get(`${this.$api}/tipos`)
+            axios.get(`${this.$api}/categorias`)
             .then(res=>{
                 this.desserts = res.data;
                 console.log(res.data);
@@ -157,7 +157,7 @@ export default {
         deleteItem (item) {
             console.log(item.id);
             if(confirm(`Seguro que desea eliminar ${item.descripcion}`)){
-                axios.delete(`${this.$api}/tipo/${item.id}`)
+                axios.delete(`${this.$api}/categoria/${item.id}`)
                 .then(res=>{
                     let index = this.desserts.indexOf(res.data);
                     this.desserts.splice(index, 1);
@@ -173,7 +173,7 @@ export default {
             this.dialogEdit = false;
         },
         edit(){
-            axios.put(`${this.$api}/tipo/${this.itemEdit.id}`,{
+            axios.put(`${this.$api}/categoria/${this.itemEdit.id}`,{
                 descripcion: this.itemEdit.descripcion
             })
             .then(res=>{
@@ -184,7 +184,7 @@ export default {
             });
         },
         save () {  
-            axios.post(`${this.$api}/tipo`,{
+            axios.post(`${this.$api}/categoria`,{
                 descripcion : this.descripcion
             })
             .then(res=>{

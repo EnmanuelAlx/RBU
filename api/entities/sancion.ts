@@ -21,7 +21,7 @@ export class Sancion {
         nullable: true,
     })
     public fechaInicio: string | null;
-
+    
     @Column('date', {
         name: 'fecha_fin',
         nullable: true,

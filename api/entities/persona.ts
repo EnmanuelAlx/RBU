@@ -1,4 +1,3 @@
-// tslint:disable-next-line:max-line-length
 import { BaseEntity, Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Categorias } from './categorias';
 import { OfertaAcademica } from './oferta_academica';

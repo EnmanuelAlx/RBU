@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import OfertaAcademica from '@/components/OfertaAcademica'
 import TipoOfertaAcademica from '@/components/TipoOfertaAcademica'
+import Categoria from '@/components/Categoria'
+import Personas from '@/components/Persona'
 
 Vue.use(Router)
 
@@ -22,6 +24,16 @@ export default new Router({
       path: '/tipo-oferta-academica',
       name: 'TipoOfertaAcademica',
       component: TipoOfertaAcademica
+    },
+    {
+      path: '/categoria',
+      name: 'Categoria',
+      component: Categoria
+    },
+    {
+      path: '/personas',
+      name: 'Persona',
+      component: Personas
     }
   ]
 })

@@ -14,7 +14,7 @@
                         <v-icon>dashboard</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <router-link :to="{name : 'hello'}" tag="v-list-tile-title">Primero</router-link>
+                        <router-link :to="{name : 'Persona'}" tag="v-list-tile-title">Persona</router-link>
                     </v-list-tile-content>
                 </v-list-tile>
 
@@ -32,6 +32,14 @@
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <router-link :to="{name : 'TipoOfertaAcademica'}" tag="v-list-tile-title">Tipos de Ofertaas Academica</router-link>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon>dashboard</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <router-link :to="{name : 'Categoria'}" tag="v-list-tile-title">Categorias</router-link>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
