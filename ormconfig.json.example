@@ -2,16 +2,16 @@
   "type": "mysql",
   "host": "localhost",
   "port": 3306,
-  "username": "test",
-  "password": "test",
-  "database": "test",
-  "synchronize": true,
-  "entities": ["build/entity/*.js"],
-  "subscribers": ["build/subscriber/*.js"],
-  "migrations": ["build/migration/*.js"],
+  "username": "root",
+  "password": "password",
+  "database": "biblioteca",
+  "synchronize": false,
+  "entities": ["api/build/entities/*.js"],
+  "subscribers": ["api/build/subscriber/*.js"],
+  "migrations": ["api/build/migration/*.js"],
   "cli": {
-    "entitiesDir": "src/entity",
-    "migrationsDir": "src/migration",
-    "subscribersDir": "src/subscriber"
+    "entitiesDir": "api/entities",
+    "migrationsDir": "api/migration",
+    "subscribersDir": "api/subscriber"
   }
 }
