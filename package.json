@@ -10,6 +10,7 @@
     "build": "node build/build.js",
     "watch:api": "tsc -w",
     "dev:api": "nodemon api/build/index.js",
+    "to": "typeorm",
     "start:api": "concurrently \"npm run dev:api\" \"npm run watch:api\"  "
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "material-design-icons-iconfont": "^5.0.1",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
+    "react-native-sqlite-storage": "^3.3.10",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.18",
     "vue": "^2.5.2",
@@ -66,6 +68,7 @@
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2",
     "uglifyjs-webpack-plugin": "^1.1.1",
