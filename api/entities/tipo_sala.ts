@@ -2,6 +2,10 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Persona } from './persona';
 import { Sala } from './sala';
 
+export enum TipoSalaRelations {
+  salas = 'salas'
+}
+
 @Entity('tipo_sala', { schema: 'biblioteca' })
 export class TipoSala {
   @PrimaryGeneratedColumn({
