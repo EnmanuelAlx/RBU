@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import OfertaAcademica from '@/components/OfertaAcademica'
+import Salas from '@/components/Salas'
 import TipoOfertaAcademica from '@/components/TipoOfertaAcademica'
 import Categoria from '@/components/Categoria'
 import Personas from '@/components/Persona'
@@ -34,6 +35,11 @@ export default new Router({
       path: '/personas',
       name: 'Persona',
       component: Personas
+    },
+    {
+      path: '/salas',
+      name: 'Salas',
+      component: Salas
     }
   ]
 })

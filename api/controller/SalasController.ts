@@ -12,7 +12,7 @@ export default {
         SalaRelations.reservacions
       ]
     });
-
+    console.log("asd")
     res.send(salas);
   },
   async getById(req: Request, res: Response) {
