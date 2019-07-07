@@ -129,6 +129,11 @@ export const AppRoutes = [
     method: Method.post,
     path: '/api/sancionar'
   },
+  {
+    action: Sancion.getAll,
+    method: Method.get,
+    path: '/api/reportes'
+  },
   //////////// Salas //////////////////
   {
     action: Sala.getAll,

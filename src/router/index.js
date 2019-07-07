@@ -5,6 +5,7 @@ import OfertaAcademica from '@/components/OfertaAcademica'
 import TipoOfertaAcademica from '@/components/TipoOfertaAcademica'
 import Categoria from '@/components/Categoria'
 import Personas from '@/components/Persona'
+import Reportes from '@/components/Reportes'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/personas',
       name: 'Persona',
       component: Personas
+    },
+    {
+      path: '/reportes',
+      name: 'Reportes',
+      component: Reportes
     }
   ]
 })

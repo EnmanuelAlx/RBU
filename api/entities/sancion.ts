@@ -1,5 +1,5 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { PersonasReservacion } from './personas_reservacion';
+import { Persona } from './persona';
 
 @Entity('sancion', { schema: 'biblioteca' })
 @Index('fk_sanciones_personas_reservacion_1', ['idPersonaReservacion'])
@@ -10,11 +10,12 @@ export class Sancion {
     })
     public id: number;
 
-    @ManyToOne(() => PersonasReservacion, (personasReservacion$) => {
-        return personasReservacion$.sancions;
+    @ManyToOne(() => Persona, (personasReservacion$) => {
+        return personasReservacion$.nombres;
     }, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
+
     @JoinColumn({ name: 'id_persona_reservacion' })
-    public idPersonaReservacion: PersonasReservacion | null;
+    public idPersonaReservacion: Persona | null;
 
     @Column('date', {
         name: 'fecha_inicio',
