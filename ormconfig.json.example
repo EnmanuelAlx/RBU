@@ -1,0 +1,17 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "password",
+  "database": "biblioteca",
+  "synchronize": false,
+  "entities": ["api/build/entities/*.js"],
+  "subscribers": ["api/build/subscriber/*.js"],
+  "migrations": ["api/build/migration/*.js"],
+  "cli": {
+    "entitiesDir": "api/entities",
+    "migrationsDir": "api/migration",
+    "subscribersDir": "api/subscriber"
+  }
+}
