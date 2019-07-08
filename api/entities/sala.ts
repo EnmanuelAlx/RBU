@@ -29,6 +29,11 @@ export class Sala {
   })
   public id: number;
 
+  @Column({
+    name: 'nombre'
+  })
+  public nombre: string;
+
   @ManyToOne(() => Piso, piso$ => piso$.salas, {
     onDelete: 'RESTRICT',
     onUpdate: 'RESTRICT'
