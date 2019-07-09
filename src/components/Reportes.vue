@@ -160,7 +160,6 @@ export default {
     menu1: false,
     menu2: false,
             filter: false,
-            // --------------- 
             search: '',
             dialog: false,
             dialogEdit: false,
@@ -232,7 +231,6 @@ export default {
             axios.get(`${this.$api}/personas`)
             .then(res=>{
                 this.personas = res.data;
-                // console.log(personas.apellidos[1]);
                 
             })
             .catch(err=>{
@@ -304,9 +302,6 @@ export default {
   }
 }
 </script>
-
-
-
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
