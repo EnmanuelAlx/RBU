@@ -370,9 +370,10 @@ export default {
             })
             .then(res=>{
                 console.log(res.data);
+                this.dialogSancion = false;
             })
             .catch(err=>{
-
+                alert('Hubo un error al sancionar, contacte al CGTI')
             });
         }
     }

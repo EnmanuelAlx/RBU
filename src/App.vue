@@ -50,6 +50,43 @@
                         <router-link :to="{name : 'Categoria'}" tag="v-list-tile-title">Categorias</router-link>
                     </v-list-tile-content>
                 </v-list-tile>
+
+                <v-list-group
+                    prepend-icon="view_column"
+                >
+                    <template v-slot:activator>
+                        <v-list-tile>
+                            <v-list-tile-content>
+                            <v-list-tile-title>Reportes</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </template>
+                    <v-list-tile>
+                        <v-list-tile-action>
+                            
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <router-link :to="{name : 'reporteSancion'}" tag="v-list-tile-title">Sanciones</router-link>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile>
+                        <v-list-tile-action>
+                            
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <router-link :to="{name : 'reporteSalas'}" tag="v-list-tile-title">Cantidad de personas en salas</router-link>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile>
+                        <v-list-tile-action>
+                            
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <router-link :to="{name : 'reporteReservas'}" tag="v-list-tile-title">Cantidad de reservas de una sala</router-link>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    
+                </v-list-group>
             </v-list>
         </v-navigation-drawer>
 

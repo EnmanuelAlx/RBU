@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
-import { getManager, InsertResult } from 'typeorm';
-import { Sala, SalaRelations } from '../entities/sala';
+import { Request, Response } from "express";
+import { getManager, InsertResult } from "typeorm";
+import { Sala, SalaRelations } from "../entities/sala";
 
 export default {
   async getAll(req: Request, res: Response) {
@@ -12,7 +12,6 @@ export default {
         SalaRelations.reservacions
       ]
     });
-    console.log("asd")
     res.send(salas);
   },
   async getById(req: Request, res: Response) {
@@ -31,6 +30,37 @@ export default {
       return;
     }
     res.send(sala);
+  },
+  async getReport(req: Request, res: Response) {
+    const SalaRepository = getManager().getRepository(Sala);
+    const salasReport = await SalaRepository.createQueryBuilder("Sala")
+      .select(
+        "Sala.nombre as Sala, COUNT(Sala.id) as CantidadPersonas, YEAR(Reservacion.fecha) as Year, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
+      )
+      .leftJoin("Sala.reservacions", "Reservacion")
+      .innerJoin("Reservacion.personasReservacions", "Personas_reservacion")
+      .groupBy("Sala.id")
+      .addGroupBy("Reservacion.fecha")
+      .getRawMany();
+
+    res.send(salasReport);
+  },
+  async getReportByDate(req: Request, res: Response) {
+    let { fechaInicio, fechaFin } = req.body;    
+    const SalaRepository = getManager().getRepository(Sala);
+    const salasReport = await SalaRepository.createQueryBuilder("Sala")
+      .select(
+        "Sala.nombre as Sala, COUNT(Sala.id) as CantidadPersonas, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
+      )
+      .leftJoin("Sala.reservacions", "Reservacion")
+      .where("Reservacion.fecha >= :fechaInicio", { fechaInicio: fechaInicio })
+      .andWhere("Reservacion.fecha <= :fechaFin", { fechaFin: fechaFin })
+      .innerJoin("Reservacion.personasReservacions", "Personas_reservacion")
+      .groupBy("Sala.id")
+      .addGroupBy("Reservacion.fecha")
+      .getRawMany();
+
+    res.send(salasReport);
   },
   async add(req: Request, res: Response) {
     const SalaRepository = getManager().getRepository(Sala);

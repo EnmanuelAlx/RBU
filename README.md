@@ -18,12 +18,36 @@ npm install
 # Cada tabla sera representada por un archivo javascript, se encuentra como ejemplo el "task.js"
 # Revisar la documentacion de sequelize o preguntar a Enmanuel si es necesario ❤
 
-# Iniciar el servidor
-nodemon server.js
+# Inicializa una BD y llamala "biblioteca"
+
+# Modifica las Rutas y otros parametros en ormconfig.json (Ejemplo)
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "",
+  "database": "biblioteca",
+  "synchronize": false,
+  "entities": ["api/build/entities/*.js"],
+  "subscribers": ["api/build/subscriber/*.js"],
+  "migrations": ["api/build/migration/*.js"],
+  "cli": {
+    "entitiesDir": "api/entities",
+    "migrationsDir": "api/migration",
+    "subscribersDir": "api/subscriber"
+  }
+}
+
+# Actualiza las Migraciones
+./node_modules/.bin/typeorm migration:run
 
 # Iniciar el proyecto en modo desarrollador
 npm run dev
 
+
+# Iniciar la API
+npm run start:api
 
 ```
 
