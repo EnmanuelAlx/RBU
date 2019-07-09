@@ -163,6 +163,11 @@ export const AppRoutes = [
     path: "/api/reportes/sanciones"
   },
   {
+    action: Sancion.getReportByDate,
+    method: Method.get,
+    path: "/api/reportes/sanciones/:begin/:end" // Modificar a /api/sanciones
+  },
+  {
     action: Reserva.getReport,
     method: Method.get,
     path: "/api/reportes/reservas"
