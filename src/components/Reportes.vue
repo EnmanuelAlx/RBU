@@ -17,10 +17,76 @@
                     single-line
                     hide-details
                 ></v-text-field>
-                <v-btn color="primary" dark class="mb-2" v-on="on">Imprimir Sanciones Activas</v-btn>
+
+                <v-btn color="primary" dark class="mb-2" v-on="on" @click="filter = true">Filtrar Sanciones Activas</v-btn>
+                <v-btn color="primary" dark class="mb-2" v-on="on" @click="DoSome">Imprimir Sanciones Activas</v-btn>
                 </template>
             </v-dialog>
         </v-toolbar>
+
+        <v-dialog v-model="filter" max-width="500px">
+      <v-container grid-list-md>
+       <v-layout row wrap>
+         <v-flex xs12 lg6>
+           <v-menu
+             ref="menu1"
+             v-model="menu1"
+             :close-on-content-click="false"
+             :nudge-right="40"
+             lazy
+             transition="scale-transition"
+             offset-y
+             full-width
+             max-width="290px"
+             min-width="290px"
+           >
+             <template v-slot:activator="{ on }">
+               <v-text-field
+             v-model="dateFormatted"
+                 label="Date"
+                 hint="MM/DD/YYYY format"
+                 persistent-hint
+                 prepend-icon="event"
+                 @blur="date = parseDate(dateFormatted)"
+                 v-on="on"
+               ></v-text-field>
+             </template>
+             <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+           </v-menu>
+           <p>Date in ISO format: <strong>{{ date }}</strong></p>
+         </v-flex>
+  
+         <v-flex xs12 lg6>
+           <v-menu
+             ref="menu2"
+             v-model="menu2"
+             :close-on-content-click="false"
+             :nudge-right="40"
+             lazy
+             transition="scale-transition"
+             offset-y
+             full-width
+             max-width="290px"
+             min-width="290px"
+           >
+             <template v-slot:activator="{ on }">
+               <v-text-field
+             v-model="dateFormatted"
+                 label="Date"
+                 hint="MM/DD/YYYY format"
+                 persistent-hint
+                 prepend-icon="event"
+                 @blur="date2 = parseDate(dateFormatted)"
+                 v-on="on"
+               ></v-text-field>
+             </template>
+             <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
+           </v-menu>
+           <p>Date in ISO format: <strong>{{ date2 }}</strong></p>
+         </v-flex>
+       </v-layout>
+     </v-container>
+         </v-dialog>
 
         <v-dialog v-model="dialogEdit" max-width="500px">
             <v-card>
@@ -45,8 +111,6 @@
             </v-card-actions>
             </v-card>
         </v-dialog>
-
-
 
         <v-data-table
         :headers="headers"
@@ -89,6 +153,14 @@ import { log } from 'util';
 export default {
     name: 'Categoria',
         data: () => ({
+            // Date Picker Data
+            date: new Date().toISOString().substr(0, 10),
+            date2: new Date().toISOString().substr(0, 10),
+    // dateFormatted: formatDate(new Date().toISOString().substr(0, 10)),  -> Genera Error y no muestra la Vista
+    menu1: false,
+    menu2: false,
+            filter: false,
+            // --------------- 
             search: '',
             dialog: false,
             dialogEdit: false,
@@ -121,11 +193,22 @@ export default {
                 descripcion: ''
             }
     }),
+    computed: {
+    computedDateFormatted () {
+      return this.formatDate(this.date)
+    }
+  },
     watch: {
         dialog (val) {
         val || this.close()
-        }
+        },
+        date (val) {
+      this.dateFormatted = this.formatDate(this.date)
     },
+    date2 (val) {
+      this.dateFormatted = this.formatDate(this.date)
+    }
+},
 
     created () {
         this.initialize()
@@ -205,9 +288,20 @@ export default {
                 alert('Hubo un error, contacte al CGTI')
             });
             this.close()
-        }
-    }
+        },
+        formatDate (date) {
+      if (!date) return null
 
+      const [year, month, day] = date.split('-')
+      return `${month}/${day}/${year}`
+    },
+    parseDate (date) {
+      if (!date) return null
+
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    }
+  }
 }
 </script>
 

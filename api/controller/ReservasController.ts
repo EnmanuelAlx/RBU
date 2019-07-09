@@ -4,7 +4,6 @@ import { Reservacion } from "../entities/reservacion";
 
 export default {
   async getReportReservas(req: Request, res: Response) {
-    console.log("Hola");
     const ReservaRepository = getManager().getRepository(Reservacion);
     const reservacion = await ReservaRepository.createQueryBuilder(
       "reservacion"
@@ -13,13 +12,10 @@ export default {
       .leftJoinAndSelect("reservacion.idSala", "Sala")
       .groupBy("Sala.id")
       .getRawMany();
-
-    console.log(reservacion);
-
     res.send(reservacion);
   },
+  // Falta Pase de Parametros
   async getReportReservasByDate(req: Request, res: Response) {
-    console.log("Hola");
     const ReservaRepository = getManager().getRepository(Reservacion);
     const reservacion = await ReservaRepository.createQueryBuilder(
       "reservacion"
@@ -30,9 +26,6 @@ export default {
       .leftJoinAndSelect("reservacion.idSala", "Sala")
       .groupBy("Sala.id")
       .getRawMany();
-
-    console.log(reservacion);
-
     res.send(reservacion);
   }
 };
