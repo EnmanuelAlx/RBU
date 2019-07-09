@@ -31,6 +31,36 @@ export default {
     }
     res.send(sala);
   },
+  async getReport(req: Request, res: Response) {
+    const SalaRepository = getManager().getRepository(Sala);
+    const salasReport = await SalaRepository.createQueryBuilder("Sala")
+      .select(
+        "Sala.id as IDSala, COUNT(Sala.id) as CantidadPersonas, YEAR(Reservacion.fecha) as Year, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
+      )
+      .leftJoin("Sala.reservacions", "Reservacion")
+      .innerJoin("Reservacion.personasReservacions", "Personas_reservacion")
+      .groupBy("Sala.id")
+      .addGroupBy("Reservacion.fecha")
+      .getRawMany();
+
+    res.send(salasReport);
+  },
+  async getReportByDate(req: Request, res: Response) {
+    const SalaRepository = getManager().getRepository(Sala);
+    const salasReport = await SalaRepository.createQueryBuilder("Sala")
+      .select(
+        "Sala.id as IDSala, COUNT(Sala.id) as CantidadPersonas, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
+      )
+      .leftJoin("Sala.reservacions", "Reservacion")
+      .where("Reservacion.fecha > :fechaInicio", { fechaInicio: "2019-01-12" })
+      .andWhere("Reservacion.fecha < :fechaFin", { fechaFin: "2019-06-01" })
+      .innerJoin("Reservacion.personasReservacions", "Personas_reservacion")
+      .groupBy("Sala.id")
+      .addGroupBy("Reservacion.fecha")
+      .getRawMany();
+
+    res.send(salasReport);
+  },
   async add(req: Request, res: Response) {
     const SalaRepository = getManager().getRepository(Sala);
     const sala = req.body;

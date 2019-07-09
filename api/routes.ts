@@ -130,11 +130,6 @@ export const AppRoutes = [
     method: Method.post,
     path: "/api/sancionar"
   },
-  {
-    action: Sancion.getAll,
-    method: Method.get,
-    path: "/api/reportes"
-  },
   //////////// Salas //////////////////
   {
     action: Sala.getAll,
@@ -161,15 +156,30 @@ export const AppRoutes = [
     method: Method.delete,
     path: "/api/salas/:id"
   },
-  //////////// Reportes  //////////////////
+  //////////// Reportes //////////////////
   {
-    action: Reserva.getReportReservas,
+    action: Sancion.getReport,
     method: Method.get,
-    path: "/api/reservas/reporte"
+    path: "/api/reportes/sanciones"
   },
   {
-    action: Reserva.getReportReservasByDate,
+    action: Reserva.getReport,
     method: Method.get,
-    path: "/api/reservas/reporte/:date"
+    path: "/api/reportes/reservas"
+  },
+  {
+    action: Reserva.getReportByDate,
+    method: Method.get,
+    path: "/api/reportes/reservas/fecha"
+  },
+  {
+    action: Sala.getReport,
+    method: Method.get,
+    path: "/api/reportes/salas"
+  },
+  {
+    action: Sala.getReportByDate,
+    method: Method.get,
+    path: "/api/reportes/salas/fecha"
   }
 ];
