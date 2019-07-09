@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { getManager, InsertResult } from 'typeorm';
+import { Request, Response } from "express";
+import { getManager, InsertResult } from "typeorm";
 import {
   PersonasReservacion,
   PersonasReservacionRelations
-} from '../entities/personas_reservacion';
+} from "../entities/personas_reservacion";
 
 export default {
   async getAll(req: Request, res: Response) {
@@ -17,7 +17,6 @@ export default {
         PersonasReservacionRelations.sancions
       ]
     });
-
     res.send(personasReservacion);
   },
   async getById(req: Request, res: Response) {
@@ -42,7 +41,6 @@ export default {
     }
     res.send(personasReservacion);
   },
-
   async add(req: Request, res: Response) {
     const PersonasReservacionRepository = getManager().getRepository(
       PersonasReservacion
