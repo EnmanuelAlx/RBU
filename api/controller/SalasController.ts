@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
-import { getManager, InsertResult } from 'typeorm';
-import { Sala, SalaRelations } from '../entities/sala';
+import { Request, Response } from "express";
+import { getManager, InsertResult } from "typeorm";
+import { Sala, SalaRelations } from "../entities/sala";
 
 export default {
   async getAll(req: Request, res: Response) {
@@ -12,7 +12,6 @@ export default {
         SalaRelations.reservacions
       ]
     });
-
     res.send(salas);
   },
   async getById(req: Request, res: Response) {
