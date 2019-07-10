@@ -45,13 +45,13 @@ export class PersonasReservacion {
   @JoinColumn({ name: 'id_persona' })
   public idPersona: Persona | null;
 
-  @Column('tinyint', {
+  @Column('int', {
     name: 'esResponsable',
     nullable: true
   })
   public esResponsable: number | null;
 
-  @Column('tinyint', {
+  @Column('int', {
     name: 'estaEnSala',
     nullable: true
   })

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import OfertaAcademica from '@/components/OfertaAcademica'
 import Salas from '@/components/Salas'
+import ManejoSalas from '@/components/ManejoSalas'
 import TipoOfertaAcademica from '@/components/TipoOfertaAcademica'
 import Categoria from '@/components/Categoria'
 import Personas from '@/components/Persona'
@@ -40,6 +41,11 @@ export default new Router({
       path: '/salas',
       name: 'Salas',
       component: Salas
+    },
+    {
+      path: '/manejo-salas',
+      name: 'ManejoSalas',
+      component: ManejoSalas
     }
   ]
 })

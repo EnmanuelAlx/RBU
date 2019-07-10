@@ -9,7 +9,8 @@ export default {
       relations: [
         SalaRelations.idEstado,
         SalaRelations.idPiso,
-        SalaRelations.reservacions
+        SalaRelations.reservacions,
+        SalaRelations.idTipo
       ]
     });
     console.log("asd")

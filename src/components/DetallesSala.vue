@@ -4,12 +4,12 @@
       <v-layout row wrap>
         <v-flex xs6>
           <v-card color="#135854">
-            <v-card-text>Detalle de la sala: {{infoSala.sala}}</v-card-text>
+            <v-card-text>Detalle de la sala: #{{sala.id}}</v-card-text>
           </v-card>
         </v-flex>
         <v-flex xs6>
           <v-card color="#135854">
-            <v-card-text>Tiempo restante: {{infoSala.tiempo}}</v-card-text>
+            <v-card-text>Tiempo restante: Que coño se yo</v-card-text>
           </v-card>
         </v-flex>
 
@@ -29,7 +29,7 @@
           </v-card>
         </v-flex>
 
-        <template v-for="estudiante in infoSala.estudiantes">
+        <template v-for="estudiante in sala.reservacion">
           <v-flex v-bind:key="estudiante.nombre" xs4>
             <v-card>
               <v-card-text>
@@ -57,7 +57,7 @@
         </v-flex>
         <v-flex xs6>
           <v-card color="#135854">
-            <v-card-text>{{infoSala.encargado}}</v-card-text>
+            <v-card-text>{{sala.encargado}}</v-card-text>
           </v-card>
         </v-flex>
 
@@ -71,63 +71,12 @@
   </div>
 </template>
 <script>
-var infoSala = {};
-
-fetch("ruta aqui").then(function(response) {
-  infoSala = response.json();
-});
-
-function boton(acccion) {
-  switch (accion) {
-    case "liberar":
-      fetch("rutaLiberar", {
-        method: "POST", // or 'PUT'
-        body: JSON.stringify(infoSala.sala), // data can be `string` or {object}!
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-        .then(res => res.json())
-        .catch(error => console.error("Error:", error))
-        .then(response => console.log("Success:", response));
-      break;
-
-    case "terminar":
-      fetch("rutaTerminar", {
-        method: "POST", // or 'PUT'
-        body: JSON.stringify(infoSala.sala), // data can be `string` or {object}!
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-        .then(res => res.json())
-        .catch(error => console.error("Error:", error))
-        .then(response => console.log("Success:", response));
-      break;
-
-    case "extender":
-      fetch("rutaExtender", {
-        method: "POST", // or 'PUT'
-        body: JSON.stringify(infoSala.sala), // data can be `string` or {object}!
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-        .then(res => res.json())
-        .catch(error => console.error("Error:", error))
-        .then(response => console.log("Success:", response));
-      break;
-  }
-}
-
-//logica de buscar las variables
 export default {
   data: () => ({
-    infoSala: infoSala,
     drawer: false
   }),
   props: {
-    source: String
+    sala: Object
   }
 };
 </script>
