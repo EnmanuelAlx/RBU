@@ -35,9 +35,10 @@ export default {
     const SalaRepository = getManager().getRepository(Sala);
     const salasReport = await SalaRepository.createQueryBuilder("Sala")
       .select(
-        "Sala.nombre as Sala, COUNT(Sala.id) as CantidadPersonas, YEAR(Reservacion.fecha) as Year, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
+        "Piso.descripcion as Piso, Sala.nombre as Sala, COUNT(Sala.id) as CantidadPersonas, YEAR(Reservacion.fecha) as Year, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
       )
       .leftJoin("Sala.reservacions", "Reservacion")
+      .leftJoin("Sala.idPiso", "Piso")
       .innerJoin("Reservacion.personasReservacions", "Personas_reservacion")
       .groupBy("Sala.id")
       .addGroupBy("Reservacion.fecha")
@@ -46,16 +47,17 @@ export default {
     res.send(salasReport);
   },
   async getReportByDate(req: Request, res: Response) {
-    let { fechaInicio, fechaFin } = req.body;    
+    let { fechaInicio, fechaFin } = req.body;
     const SalaRepository = getManager().getRepository(Sala);
     const salasReport = await SalaRepository.createQueryBuilder("Sala")
       .select(
-        "Sala.nombre as Sala, COUNT(Sala.id) as CantidadPersonas, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
+        "Piso.descripcion as Piso, Sala.nombre as Sala, COUNT(Sala.id) as CantidadPersonas, YEAR(Reservacion.fecha) as Year, MONTH(Reservacion.fecha) as Month, DAY(Reservacion.fecha) as Day"
       )
       .leftJoin("Sala.reservacions", "Reservacion")
+      .leftJoin("Sala.idPiso", "Piso")
+      .innerJoin("Reservacion.personasReservacions", "Personas_reservacion")
       .where("Reservacion.fecha >= :fechaInicio", { fechaInicio: fechaInicio })
       .andWhere("Reservacion.fecha <= :fechaFin", { fechaFin: fechaFin })
-      .innerJoin("Reservacion.personasReservacions", "Personas_reservacion")
       .groupBy("Sala.id")
       .addGroupBy("Reservacion.fecha")
       .getRawMany();
