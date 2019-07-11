@@ -41,6 +41,47 @@ export default {
     }
     res.send(personasReservacion);
   },
+  async getPersonasByReservacionID(req: Request, res: Response) {
+    const PersonasReservacionRepository = getManager().getRepository(
+      PersonasReservacion
+    );
+    const fechaActual = new Date();
+    const tiempoActual =
+      fechaActual.getHours() +
+      ":" +
+      fechaActual.getMinutes() +
+      ":" +
+      fechaActual.getSeconds();
+    const diaActual =
+      fechaActual.getFullYear() +
+      "-" +
+      (fechaActual.getMonth() + 1) +
+      "-" +
+      fechaActual.getDate();
+
+    const personasReservacion = await PersonasReservacionRepository.createQueryBuilder(
+      "PersonasReservacion"
+    )
+      .select("Persona.nombres as Nombre, Persona.apellidos as Apellidos")
+      .leftJoin("PersonasReservacion.idReservacion", "Reservacion")
+      .leftJoin("PersonasReservacion.idPersona", "Persona")
+      .where("Reservacion.id = :ID", { ID: 2 })
+      .andWhere("Reservacion.fecha = :diaActual", { diaActual: diaActual })
+      .andWhere("Reservacion.hora_inicio <= :tiempoActual", {
+        tiempoActual: tiempoActual
+      })
+      .andWhere("Reservacion.hora_fin >= :tiempoActual", {
+        tiempoActual: tiempoActual
+      })
+      .getRawMany();
+
+    if (!personasReservacion) {
+      res.status(404);
+      res.end();
+      return;
+    }
+    res.send(personasReservacion);
+  },
   async add(req: Request, res: Response) {
     const PersonasReservacionRepository = getManager().getRepository(
       PersonasReservacion

@@ -6,6 +6,7 @@ import Persona from "./controller/PersonaController";
 import Sancion from "./controller/SancionController";
 import Sala from "./controller/SalasController";
 import Reserva from "./controller/ReservasController";
+import PersonasReservacion from "./controller/PersonasReservaciones";
 
 export enum Method {
   post = "post",
@@ -190,5 +191,12 @@ export const AppRoutes = [
     action: Sala.getReportByDate,
     method: Method.post,
     path: "/api/reportes/salas/fecha"
+  },
+  //////////// Consultas //////////////////
+  ///////////Personas que se encuentran en una sala dado un ID de Sala en el momento que se realiza la consulta.
+  {
+    action: PersonasReservacion.getPersonasByReservacionID,
+    method: Method.get,
+    path: "/api/reservacion/personasEnReservacion"
   }
 ];
