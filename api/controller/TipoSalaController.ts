@@ -45,17 +45,17 @@ export default {
     const { descripcion } = req.body;
     const { id } = req.params;
     const TipoSalaRepository = getManager().getRepository(TipoSala);
-    const estadoSala = await TipoSalaRepository.findOne(id);
-    if (!estadoSala) {
+    const tipoSala = await TipoSalaRepository.findOne(id);
+    if (!tipoSala) {
       res.status(404);
       res.end();
       return;
     }
     if (descripcion) {
-      estadoSala.descripcion = descripcion;
+      tipoSala.descripcion = descripcion;
     }
-    TipoSalaRepository.update({ id }, estadoSala);
-    res.send(estadoSala);
+    TipoSalaRepository.update({ id }, tipoSala);
+    res.send(tipoSala);
   },
 
   async delete(req: Request, res: Response) {
