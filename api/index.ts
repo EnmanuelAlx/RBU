@@ -4,7 +4,7 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
-import { AppRoutes } from './routes';
+import { getRoutes } from './routes';
 import http = require('http');
 import cors = require('cors');
 
@@ -15,7 +15,7 @@ createConnection()
     app.use(bodyParser.json());
     app.use(cors());
     // Register application routes
-    AppRoutes.forEach(route => {
+    getRoutes().forEach(route => {
       app[route.method](
         route.path,
         (req: Request, res: Response, next: any) => {
@@ -29,8 +29,8 @@ createConnection()
 
     // Run app
 
-    var server = http.createServer(app);
-    server.listen(8000, function() {
+    const server = http.createServer(app);
+    server.listen(8000, function () {
       console.log('escuchando en el puerto 8000');
     });
   })
