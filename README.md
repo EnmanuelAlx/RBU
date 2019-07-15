@@ -39,9 +39,6 @@ npm install
   }
 }
 
-# Actualiza las Migraciones
-./node_modules/.bin/typeorm migration:run
-
 # Iniciar el proyecto en modo desarrollador
 npm run dev
 
@@ -49,6 +46,7 @@ npm run dev
 # Iniciar la API
 npm run start:api
 
-```
+# Actualiza las Migraciones
+./node_modules/.bin/typeorm migration:run
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
