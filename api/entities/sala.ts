@@ -39,6 +39,11 @@ export class Sala {
   })
   public capacidad: number;
 
+  @Column({
+    name: 'capacidad_maxima'
+  })
+  public capacidadMaxima: number;
+
   @ManyToOne(() => Piso, piso$ => piso$.salas, {
     onDelete: 'RESTRICT',
     onUpdate: 'RESTRICT'
