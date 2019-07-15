@@ -193,10 +193,16 @@ export const AppRoutes = [
     path: "/api/reportes/salas/fecha"
   },
   //////////// Consultas //////////////////
-  ///////////Personas que se encuentran en una sala dado un ID de Sala en el momento que se realiza la consulta.
+  ///////////Personas que se encuentran en una sala dado un ID de Reservacion en el momento que se realiza la consulta.
   {
     action: PersonasReservacion.getPersonasByReservacionID,
     method: Method.get,
     path: "/api/reservacion/personasEnReservacion"
   }
+  ///////////Buscar a una persona que se encuentre en una sala con una reserva activa.
+  {
+    action: PersonasReservacion.getPersonasByNombre,
+    method: Method.get,
+    path: "/api/reservacion/personasEnReservacion/nombre"
+  }  
 ];
