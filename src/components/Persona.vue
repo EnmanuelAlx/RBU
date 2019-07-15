@@ -178,6 +178,7 @@
         <template v-slot:items="props">
             <td class="text-xs-left">{{ props.item.nombres }}</td>
             <td class="text-xs-left">{{ props.item.apellidos }}</td>
+            <td class="text-xs-left">{{ props.item.cedula }}</td>
             <td class="text-xs-left">{{ props.item.idCategoria.descripcion }}</td>
             <td class="text-xs-left">{{ props.item.idOfertaAcademica.descripcion }}</td>
             <td class="text-xs-right">
@@ -224,6 +225,7 @@ export default {
                     value: 'nombres'
                 },
                 { text: 'Apellidos', value: 'apellidos', sortable: true, },
+                { text: 'Cedula', value: 'cedula', sortable: true, },
                 { text: 'Categoria', value: 'idOfertaAcademica.descripcion', sortable: true, },
                 { text: 'Oferta Academica', value: 'idCategoria.descripcion', sortable: true, },
                 { text: 'Actions', value: 'actions', sortable: false, align: 'right', }
