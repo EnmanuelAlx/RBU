@@ -31,6 +31,12 @@ export class Reservacion {
   })
   public fecha: string | null;
 
+  @Column("varchar", {
+    name: "beca",
+    nullable: true
+  })
+  public beca: string | null;
+
   @Column("time", {
     name: "hora_inicio",
     nullable: true
