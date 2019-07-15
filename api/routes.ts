@@ -198,11 +198,11 @@ export const AppRoutes = [
     action: PersonasReservacion.getPersonasByReservacionID,
     method: Method.get,
     path: "/api/reservacion/personasEnReservacion"
-  }
+  },
   ///////////Buscar a una persona que se encuentre en una sala con una reserva activa.
   {
     action: PersonasReservacion.getPersonasByNombre,
     method: Method.get,
     path: "/api/reservacion/personasEnReservacion/nombre"
-  }  
+  }
 ];
