@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Dashboard from '@/components/Dashboard'
 import OfertaAcademica from '@/components/OfertaAcademica'
 import Salas from '@/components/Salas'
 import TipoOfertaAcademica from '@/components/TipoOfertaAcademica'
@@ -16,8 +16,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'hello',
-      component: HelloWorld
+      name: 'dashboard',
+      component: Dashboard
     },
     {
       path: '/oferta-academica',
@@ -58,6 +58,6 @@ export default new Router({
       path: '/reportes-reservas',
       name: 'reporteReservas',
       component: ReporteReservas
-    }
+    },
   ]
 })

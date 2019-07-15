@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getManager } from 'typeorm';
 import { Persona } from '../entities/persona';
+import { SSL_OP_CISCO_ANYCONNECT } from 'constants';
 
 export default {
   async getAll(req: Request, res: Response) {
@@ -70,5 +71,6 @@ export default {
     }
     personaRepository.delete({ id: persona.id });
     res.send(persona);
-  }
+  },
+  
 };

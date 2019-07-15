@@ -13,6 +13,11 @@ export class Persona {
     })
     public id: number;
 
+    @Column({
+        name: 'cedula',
+    })
+    public cedula: string;
+
     @Column('varchar', {
         name: 'nombres',
         nullable: true,
@@ -42,4 +47,6 @@ export class Persona {
     }, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' })
     public personasReservacions: PersonasReservacion[];
 
+
+    public esResponsable: Number;
 }

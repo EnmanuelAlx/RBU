@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getManager, InsertResult } from "typeorm";
 import { Sala, SalaRelations } from "../entities/sala";
+import { Reservacion } from "../entities/reservacion";
 
 export default {
   async getAll(req: Request, res: Response) {
@@ -9,8 +10,16 @@ export default {
       relations: [
         SalaRelations.idEstado,
         SalaRelations.idPiso,
-        SalaRelations.reservacions
-      ]
+        SalaRelations.reservacions,
+        SalaRelations.idTipo,
+      ],
+      where:{
+        reservacions: {
+          where:{
+            beca: 'Maria Tirado'
+          }
+        }
+      }
     });
     res.send(salas);
   },
@@ -107,5 +116,71 @@ export default {
     }
     SalaRepository.delete({ id: sala.id });
     res.send(sala);
-  }
+  },
+    async liberar(req: Request, res: Response){
+        const { id, idEstado } = req.body;
+        const SalaRepository = getManager().getRepository(Sala);
+        const sala = await SalaRepository.findOne(id);
+        if (!sala) {
+            res.status(404);
+            res.end();
+            return;
+          }
+          sala.idEstado = idEstado;
+
+          SalaRepository.update({ id }, sala);
+          res.send(sala);
+    },
+    async getPersonas(req: Request, res: Response){
+      const { idSala } = req.body;
+      const SalaRepository = getManager().getRepository(Sala);
+      const currentDate = new Date();
+      const personas = await SalaRepository.createQueryBuilder("sala")
+      .innerJoinAndSelect('sala.reservacions', "reservacion")
+      .where('reservacion.fecha = :currentDate',{currentDate: `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`})
+      .andWhere("reservacion.horaInicio <= :currentHour",{currentHour: `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}.${currentDate.getMilliseconds}`})
+      .andWhere("reservacion.horaFin >= :currentHour",{currentHour: `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`})
+      .andWhere("sala.id = :id", {id: idSala})
+      .innerJoinAndSelect('reservacion.personasReservacions', "persona_reservacion")
+      .innerJoinAndSelect('persona_reservacion.idPersona', "persona")
+      .select("persona.nombres, persona.apellidos, persona.id")
+      .getRawMany()
+      // console.log(`${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`);
+    
+      res.send(personas);
+    },
+    async getSalasReservacion(req: Request, res: Response){
+      const SalaRepository = getManager().getRepository(Sala);
+      const salas = await SalaRepository.find({
+        relations: [
+          SalaRelations.idEstado,
+          SalaRelations.idPiso,
+          SalaRelations.reservacions,
+          SalaRelations.idTipo,
+        ]
+      });
+      const currentDate = new Date();
+      const año = currentDate.getFullYear();
+      let mes = currentDate.getMonth()+1;
+      let dia = currentDate.getDate();
+      if(mes<10){
+        mes = `0${mes}`
+      }
+      if(dia<10){
+        dia = `0${dia}`
+      }
+      let horaActual = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+  
+      salas.forEach((element, i) => {
+          if(element.reservacions.length > 0){
+            element.reservacions.filter(element=>{
+              if(element.fecha == `${año}-${mes}-${dia}` && element.horaInicio <= horaActual && element.horaFin>=horaActual){
+                salas[i].idReservacion = element.id
+              }
+            })
+          }
+      });
+      res.send(salas)
+    },
+    
 };

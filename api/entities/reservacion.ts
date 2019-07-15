@@ -5,7 +5,8 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  Timestamp
 } from "typeorm";
 import { PersonasReservacion } from "./personas_reservacion";
 import { Sala } from "./sala";
@@ -35,13 +36,19 @@ export class Reservacion {
     name: "hora_inicio",
     nullable: true
   })
-  public horaInicio: string | null;
+  public horaInicio: Timestamp | null;
 
   @Column("time", {
     name: "hora_fin",
     nullable: true
   })
-  public horaFin: string | null;
+  public horaFin: Timestamp | null;
+  
+  @Column("time", {
+    name: "beca",
+    nullable: true
+  })
+  public beca: string | null;
 
   @OneToMany(
     () => PersonasReservacion,

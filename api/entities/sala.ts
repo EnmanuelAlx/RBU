@@ -33,6 +33,11 @@ export class Sala {
     name: 'nombre'
   })
   public nombre: string;
+  
+  @Column({
+    name: 'max_personas'
+  })
+  public capacidad: number;
 
   @ManyToOne(() => Piso, piso$ => piso$.salas, {
     onDelete: 'RESTRICT',
@@ -59,5 +64,8 @@ export class Sala {
     onDelete: 'RESTRICT',
     onUpdate: 'RESTRICT'
   })
+  @JoinColumn({name: 'id_sala'})
   public reservacions: Reservacion[];
+
+  public idReservacion : Number;
 }

@@ -6,6 +6,7 @@ import Persona from "./controller/PersonaController";
 import Sancion from "./controller/SancionController";
 import Sala from "./controller/SalasController";
 import Reserva from "./controller/ReservasController";
+import PersonasReservacion from "./controller/PersonasReservaciones";
 
 export enum Method {
   post = "post",
@@ -156,6 +157,21 @@ export const AppRoutes = [
     method: Method.delete,
     path: "/api/salas/:id"
   },
+  {
+    action: Sala.liberar,
+    method: Method.post,
+    path: "/api/salas/liberar"
+  },
+  {
+    action: Sala.getPersonas,
+    method: Method.post,
+    path: "/api/salas/getPersonas"
+  },
+  {
+    action: Sala.getSalasReservacion,
+    method: Method.get,
+    path: "/api/salasReservacion"
+  },
   //////////// Reportes //////////////////
   {
     action: Sancion.getReport,
@@ -190,5 +206,23 @@ export const AppRoutes = [
     action: Sala.getReportByDate,
     method: Method.post,
     path: "/api/reportes/salas/fecha"
-  }
+  },
+  ////////////////////Reservas
+  {
+    action: Reserva.reservarSala,
+    method: Method.post,
+    path: "/api/reservar"
+  },
+  {
+    action: Reserva.desocupar,
+    method: Method.post,
+    path: "/api/sala/desocupar"
+  },
+  ////////
+  {
+    action: PersonasReservacion.getPersonasByReservacionID,
+    method: Method.post,
+    path: "/api/reservacion/personasEnReservacion"
+  },
+  
 ];
