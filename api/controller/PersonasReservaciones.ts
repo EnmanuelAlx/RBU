@@ -41,7 +41,74 @@ export default {
     }
     res.send(personasReservacion);
   },
-  
+  async getPersonasByNombre(req: Request, res: Response) {
+    const nombres = "...";
+    const PersonasReservacionRepository = getManager().getRepository(
+      PersonasReservacion
+    );
+    const fechaActual = new Date();
+    const tiempoActual =
+      fechaActual.getHours() +
+      ":" +
+      fechaActual.getMinutes() +
+      ":" +
+      fechaActual.getSeconds();
+    const diaActual =
+      fechaActual.getFullYear() +
+      "-" +
+      (fechaActual.getMonth() + 1) +
+      "-" +
+      fechaActual.getDate();
+
+    const personasReservacion = await PersonasReservacionRepository.createQueryBuilder(
+      "PersonasReservacion"
+    )
+      .select(
+        "Sala.nombre as Sala, Persona.nombres as Nombre, Persona.apellidos as Apellidos"
+      )
+      .leftJoin("PersonasReservacion.idReservacion", "Reservacion")
+      .leftJoin("Reservacion.idSala", "Sala")
+      .leftJoin("PersonasReservacion.idPersona", "Persona")
+      .where("Reservacion.fecha = :diaActual", { diaActual: diaActual })
+      .andWhere("Reservacion.hora_inicio <= :tiempoActual", {
+        tiempoActual: tiempoActual
+      })
+
+      .andWhere("Reservacion.hora_fin >= :tiempoActual", {
+        tiempoActual: tiempoActual
+      })
+      .andWhere("Persona.nombres LIKE :nombres", {
+        nombres: "%" + nombres + "%"
+      })
+      .getRawMany();
+
+    if (!personasReservacion) {
+      res.status(404);
+      res.end();
+      return;
+    }
+    res.send(personasReservacion);
+  },
+  async add(req: Request, res: Response) {
+    const PersonasReservacionRepository = getManager().getRepository(
+      PersonasReservacion
+    );
+    const personasReservacion: PersonasReservacion = req.body;
+    PersonasReservacionRepository.insert(personasReservacion).then(
+      (personasReservacion$: InsertResult) => {
+        res.send({
+          id: personasReservacion$.raw.insertId
+        });
+      }
+    );
+
+    if (!personasReservacion) {
+      res.status(404);
+      res.end();
+      return;
+    }
+  },
+
   async update(req: Request, res: Response) {
     const {} = req.body;
 

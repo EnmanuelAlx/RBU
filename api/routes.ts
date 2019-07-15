@@ -207,6 +207,7 @@ export const AppRoutes = [
     method: Method.post,
     path: "/api/reportes/salas/fecha"
   },
+<<<<<<< HEAD
   ////////////////////Reservas
   {
     action: Reserva.reservarSala,
@@ -225,4 +226,19 @@ export const AppRoutes = [
     path: "/api/reservacion/personasEnReservacion"
   },
   
+=======
+  //////////// Consultas //////////////////
+  ///////////Personas que se encuentran en una sala dado un ID de Reservacion en el momento que se realiza la consulta.
+  {
+    action: PersonasReservacion.getPersonasByReservacionID,
+    method: Method.get,
+    path: "/api/reservacion/personasEnReservacion"
+  },
+  ///////////Buscar a una persona que se encuentre en una sala con una reserva activa.
+  {
+    action: PersonasReservacion.getPersonasByNombre,
+    method: Method.get,
+    path: "/api/reservacion/personasEnReservacion/nombre"
+  }
+>>>>>>> abc7889ee151f4eaba05b4b2f134049d2cfb312f
 ];
