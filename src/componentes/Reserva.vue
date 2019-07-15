@@ -243,7 +243,9 @@ import axios from 'axios'
                     beca: this.beca
                 })
                 .then(res => {
-                    this.$emit('reserva', res.data)
+                    let idReservacion = res.data.idReservacion;
+
+                    this.$emit('reserva', {idReservacion, horaFin: this.horaFin} )
                 })
                 .catch(err => {
                     console.error(err); 

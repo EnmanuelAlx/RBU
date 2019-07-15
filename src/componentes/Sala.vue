@@ -6,7 +6,7 @@
                     <h3>{{ nombre }}</h3>
                     <h4>Tipo: {{ tipo }}</h4>
                     <h4>Piso: {{ piso }}</h4>
-                    <h4>{{ horaFin }}</h4>
+                    <h4 v-if="horaFin">Finaliza a las {{ horaFin }}</h4>
                 </div>
             </v-card-title>
             <v-card-actions class="justify-center">
@@ -38,6 +38,7 @@
 <script>
 import axios from 'axios'
 import formSala from './Reserva.vue'
+import { clearInterval, setInterval, clearTimeout } from 'timers';
     export default {
         name: "Sala",
         components: {
@@ -89,11 +90,8 @@ import formSala from './Reserva.vue'
                 dialog: false,
                 personas:[],
                 idReservacion: this.idReservacionInit,
-                horaFin: this.horaFinInit
+                horaFin: this.horaFinInit,      
             }
-        },
-        computed: {
-            
         },
         methods: {
             liberar(){
@@ -104,6 +102,7 @@ import formSala from './Reserva.vue'
                     })
                     .then(res=>{
                         this.estado = res.data.idEstado
+                        this.horaFin = null;
                     })
                     .catch(err=>{
                         alert('Error al liberar la sala, contacte con el CGTI')
@@ -114,7 +113,9 @@ import formSala from './Reserva.vue'
                 this.dialog = true
             },
             reserva(data){
-                this.idReservacion = data,
+                console.log(data);
+                this.idReservacion = data.idReservacion,
+                this.horaFin = data.horaFin
                 this.dialog = false;
                 this.estado = 2;
             },
