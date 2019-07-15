@@ -67,6 +67,7 @@ export default {
       )
       .leftJoin("PersonasReservacion.idReservacion", "Reservacion")
       .leftJoin("PersonasReservacion.idPersona", "Persona")
+      .leftJoin("Reservacion.idSala", "Sala")
       .where("Reservacion.id = :ID", { ID: 2 })
       .andWhere("Reservacion.fecha = :diaActual", { diaActual: diaActual })
       .andWhere("Reservacion.hora_inicio <= :tiempoActual", {
@@ -76,6 +77,7 @@ export default {
       .andWhere("Reservacion.hora_fin >= :tiempoActual", {
         tiempoActual: tiempoActual
       })
+      .andWhere("Sala.id_estado = 2")
       .getRawMany();
 
     if (!personasReservacion) {
