@@ -14,7 +14,6 @@
                 </v-flex>
             </v-layout>
         </v-container>
-        <v-btn color="success" @click="getSalas">text</v-btn>
     </div>
 </template>
 

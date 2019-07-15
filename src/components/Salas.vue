@@ -24,7 +24,7 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12>
-                  <v-text-field v-model="sala.nombre" outline label="Nombre" placeholder="No hace nada aun" />
+                  <v-text-field v-model="sala.nombre" outline label="Nombre" placeholder="Nombre" />
                   <v-select
                     :items="pisos"
                     label="Piso"
@@ -41,6 +41,11 @@
                     item-value="id"
                     v-model="sala.tipo"
                   />
+                  <v-text-field
+                    name="Capacidad"
+                    label="Capacidad"
+                    v-model="sala.capacidad"
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -65,14 +70,17 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
-                <v-text-field v-model="salaEdit.id" outline label="ID" />
+                <v-text-field
+                    name="nombre"
+                    label="Nombre"
+                    v-model="salaEdit.nombre"
+                ></v-text-field>
                 <v-select
-                  :items="pisos"
-                  label="Piso"
-                  outline
+                  :items="estados"
+                  v-model="salaEdit.estado"
+                  label="Estado"
                   item-text="descripcion"
                   item-value="id"
-                  v-model="salaEdit.idpiso"
                 ></v-select>
                 <v-select
                   :items="tiposSala"
@@ -82,6 +90,11 @@
                   item-value="id"
                   v-model="salaEdit.tipo"
                 />
+                <v-text-field
+                    name="Capacidad"
+                    label="Capacidad"
+                    v-model="salaEdit.capacidad"
+                ></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -97,12 +110,13 @@
 
     <v-data-table :headers="headers" :items="salas" :search="search" class="elevation-1">
       <template v-slot:items="props">
-        <td class="text-xs-left">{{ props.item.id }}</td>
+        <td class="text-xs-left">{{ props.item.nombre }}</td>
         <td class="text-xs-left">{{ props.item.idPiso.descripcion }}</td>
-        <td class="text-xs-left">{{ props.item.idEstado.descripcion }}</td>
+        <td class="text-xs-left">{{ traducirEstado(props.item.idEstado.descripcion) }}</td>
         <td class="text-xs-left">{{ props.item.idTipo.descripcion }}</td>
+        <td class="text-xs-left">{{ props.item.capacidad }}</td>
         <td class="text-xs-right">
-          <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
+          <!-- <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon> -->
           <v-icon small @click="deleteItem(props.item)">delete</v-icon>
         </td>
       </template>
@@ -123,9 +137,9 @@ export default {
     dialogEdit: false,
     headers: [
       {
-        text: "ID",
-        align: "left",
-        value: "id"
+        text: "Nombre",
+        value: "nombre",
+        sortable: true
       },
       {
         text: "Piso",
@@ -140,6 +154,11 @@ export default {
       {
         text: "Tipo",
         value: "idTipo.descripcion",
+        sortable: true
+      },
+      {
+        text: "Capacidad Maxima",
+        value: "capacidad",
         sortable: true
       },
       {
@@ -159,71 +178,68 @@ export default {
       descripcion: ""
     },
     sala: {
-      id: null,
       nombre: "",
       idpiso: null,
-      tipo: null
+      tipo: null,
+      capacidad: 0,
     },
     salaEdit: {
       id: null,
       nombre: "",
       idpiso: null,
-      tipo: null
+      tipo: null,
+      capacidad: 0
     },
     tiposSala: [
       {
-        id: 0,
-        tipo: "General"
-      },
-      {
         id: 1,
-        tipo: "Profesores"
+        tipo: "Normal"
       },
       {
         id: 2,
+        tipo: "Profesores"
+      },
+      {
+        id: 3,
         tipo: "Otro"
       }
     ],
     pisos: [
       {
-        id: 0,
+        id: 1,
         descripcion: "Piso 1"
       },
       {
-        id: 1,
+        id: 2,
         descripcion: "Piso 2"
       },
       {
-        id: 2,
+        id: 3,
         descripcion: "Mezanina"
       }
     ],
+    estados: [
+      {
+        id: 1,
+        descripcion: 'Disponible'
+      },
+      {
+        id: 2,
+        descripcion: 'Ocupado'
+      },
+    ]
   }),
   watch: {
     dialog(val) {
       val || this.close();
     }
   },
-
   created() {
     this.initialize();
   },
-
   methods: {
     initialize() {
       this.getSalas();
-      //this.getTiposSala();
-      //this.getMasCosas();
-    },
-    getTiposSala() {
-      axios
-        .get(`${this.$api}/ofertasAcademicas`)
-        .then(res => {
-          this.ofertas = res.data;
-        })
-        .catch(err => {
-          alert("Hubo un error, contacte al CGTI");
-        });
     },
     getSalas() {
       this.salas = [];
@@ -231,14 +247,13 @@ export default {
         .get(`${this.$api}/salas`)
         .then(res => {
           this.salas = res.data;
-          console.log(this.salas)
         })
         .catch(err => {
           alert("Hubo un error, contacte al CGTI");
         });
     },
     editItem(item) {
-        console.dir(item)
+      console.log(item)
       this.salaEdit = item;
       this.dialogEdit = true;
     },
@@ -266,9 +281,10 @@ export default {
     edit() {
       axios
         .put(`${this.$api}/salas/${this.salaEdit.id}`, {
-          idPiso: this.salaEdit.idpiso,
+          nombre: this.salaEdit.nombre,
           idEstado: this.salaEdit.estado,
-          idTipo: this.salaEdit.tipo
+          idTipo: this.salaEdit.tipo,
+          capacidad: this.sala.capacidad
         })
         .then(res => {
           location.reload();
@@ -279,10 +295,12 @@ export default {
     },
     save() {
       axios
-        .post(`${this.$api}/salas`, {
+        .post(`${this.$api}/sala`, {
+          nombre: this.sala.nombre,
           idPiso: this.sala.idpiso,
-          idEstado: 0, //Desocupado que se yo
-          idTipo: this.sala.tipo
+          idTipo: this.sala.tipo,
+          idEstado: 1,
+          capacidad: this.sala.capacidad,
         })
         .then(res => {
           location.reload();
@@ -291,6 +309,20 @@ export default {
           alert("Hubo un error, contacte al CGTI");
         });
       this.close();
+    },
+    traducirEstado(estado){
+      switch (estado) {
+        case '1':
+          return 'Disponible'
+          break;
+        case '2':
+          return 'Ocupado'
+          break;
+      
+        default:
+          return 'Hay algo raro, revise a su medico'
+          break;
+      }
     }
   }
 };

@@ -140,7 +140,7 @@ export const AppRoutes = [
   {
     action: Sala.add,
     method: Method.post,
-    path: "/api/salas"
+    path: "/api/sala"
   },
   {
     action: Sala.getById,

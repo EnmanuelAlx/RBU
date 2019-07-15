@@ -13,13 +13,6 @@ export default {
         SalaRelations.reservacions,
         SalaRelations.idTipo,
       ],
-      where:{
-        reservacions: {
-          where:{
-            beca: 'Maria Tirado'
-          }
-        }
-      }
     });
     res.send(salas);
   },
@@ -74,6 +67,7 @@ export default {
   async add(req: Request, res: Response) {
     const SalaRepository = getManager().getRepository(Sala);
     const sala = req.body;
+    console.log(sala);
     SalaRepository.insert(sala).then((sala$: InsertResult) => {
       res.send({
         id: sala$.raw.insertId
@@ -87,8 +81,9 @@ export default {
     }
   },
   async update(req: Request, res: Response) {
-    const { idEstado, idPiso } = req.body;
+    const { idEstado, idTipo, capacidad, nombre } = req.body;
     const { id } = req.params;
+    console.log(req.params, req.body);
     const SalaRepository = getManager().getRepository(Sala);
     const sala = await SalaRepository.findOne(id);
     if (!sala) {
@@ -96,12 +91,10 @@ export default {
       res.end();
       return;
     }
-    if (idEstado) {
-      sala.idEstado = idEstado;
-    }
-    if (idPiso) {
-      sala.idPiso = idPiso;
-    }
+    sala.idEstado = idEstado;
+    sala.idTipo = idTipo;
+    sala.capacidad = capacidad;
+    sala.nombre = nombre;
     SalaRepository.update({ id }, sala);
     res.send(sala);
   },
