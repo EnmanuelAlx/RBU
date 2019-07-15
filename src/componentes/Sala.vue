@@ -6,6 +6,7 @@
                     <h3>{{ nombre }}</h3>
                     <h4>Tipo: {{ tipo }}</h4>
                     <h4>Piso: {{ piso }}</h4>
+                    <h4>{{ horaFin }}</h4>
                 </div>
             </v-card-title>
             <v-card-actions class="justify-center">
@@ -72,6 +73,9 @@ import formSala from './Reserva.vue'
             idReservacionInit:{
                 type:Number,
                 default: null
+            },
+            horaFinInit:{
+                type:String,
             }
         },
         data() {
@@ -84,8 +88,12 @@ import formSala from './Reserva.vue'
                 estado: this.estadoInicial,
                 dialog: false,
                 personas:[],
-                idReservacion: this.idReservacionInit
+                idReservacion: this.idReservacionInit,
+                horaFin: this.horaFinInit
             }
+        },
+        computed: {
+            
         },
         methods: {
             liberar(){
@@ -113,7 +121,7 @@ import formSala from './Reserva.vue'
             desocuparSala(id){
                 this.dialog = false;
                 this.estado = 1;
-            }
+            },
         },
     }
 </script>

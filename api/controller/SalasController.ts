@@ -167,13 +167,16 @@ export default {
       let horaActual = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
   
       salas.forEach((element, i) => {
+        if(element.idEstado.id !=1 ){
           if(element.reservacions.length > 0){
             element.reservacions.filter(element=>{
               if(element.fecha == `${año}-${mes}-${dia}` && element.horaInicio <= horaActual && element.horaFin>=horaActual){
-                salas[i].idReservacion = element.id
+                salas[i].idReservacion = element.id;
+                salas[i].horaFin = element.horaFin;
               }
             })
           }
+        }
       });
       res.send(salas)
     },

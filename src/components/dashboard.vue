@@ -10,7 +10,8 @@
                     :tipo="sala.idTipo.descripcion" 
                     :reservaciones="sala.reservacions" 
                     :capacidad="sala.capacidad"
-                    :idReservacionInit="sala.idReservacion"/>
+                    :idReservacionInit="sala.idReservacion"
+                    :horaFinInit="sala.horaFin"/>
                 </v-flex>
             </v-layout>
         </v-container>
