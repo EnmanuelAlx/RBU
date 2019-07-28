@@ -169,12 +169,15 @@ export default {
       salas.forEach((element, i) => {
         if(element.idEstado.id !=1 ){
           if(element.reservacions.length > 0){
-            element.reservacions.filter(element=>{
-              if(element.fecha == `${año}-${mes}-${dia}` && element.horaInicio <= horaActual && element.horaFin>=horaActual){
-                salas[i].idReservacion = element.id;
-                salas[i].horaFin = element.horaFin;
-              }
-            })
+            let r = element.reservacions[element.reservacions.length - 1];
+            salas[i].idReservacion = r.id;
+            salas[i].horaFin = r.horaFin;
+            // element.reservacions.filter(element=>{
+            //   if(element.fecha == `${año}-${mes}-${dia}` && element.horaInicio <= horaActual && element.horaFin>=horaActual){
+            //     salas[i].idReservacion = element.id;
+            //     salas[i].horaFin = element.horaFin;
+            //   }
+            // })
           }
         }
       });

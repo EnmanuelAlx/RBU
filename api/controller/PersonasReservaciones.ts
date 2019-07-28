@@ -177,8 +177,8 @@ export default {
       .leftJoin("PersonasReservacion.idPersona", "Persona")
       .where("Reservacion.id = :ID", { ID: idReservacion })
       .andWhere("Reservacion.fecha = :diaActual", { diaActual: diaActual })
-      .andWhere("Reservacion.hora_inicio <= :tiempoInicio", {tiempoInicio: tiempoActual})
-      .andWhere("Reservacion.hora_fin >= :tiempoActual", {tiempoActual: tiempoActual})
+      // .andWhere("Reservacion.hora_inicio <= :tiempoInicio", {tiempoInicio: tiempoActual})
+      // .andWhere("Reservacion.hora_fin >= :tiempoActual", {tiempoActual: tiempoActual})
       .orderBy('PersonasReservacion.esResponsable', 'DESC')
       .getRawMany();
 

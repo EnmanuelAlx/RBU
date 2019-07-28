@@ -146,6 +146,7 @@
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
     export default {
         name:"Reserva",
         props: {
@@ -232,7 +233,12 @@ import axios from 'axios'
                 }
             },
             reservar(){
+                let fechaActualComp = moment().format('HH:mm:ss');
                 let fechaActual = new Date();
+                if(fechaActualComp > this.horaFin || this.horaFin == ''){
+                    alert('No puede reservar la sala pcon esa hora');
+                    return;
+                }
                 this.ArrPersonas[0].responsable = 1;
                 axios.post(`${this.$api}/reservar`,{
                     personasReservacions: this.ArrPersonas,
